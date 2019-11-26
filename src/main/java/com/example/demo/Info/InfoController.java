@@ -1,6 +1,7 @@
 package com.example.demo.Info;
 
 import com.example.demo.UserTable.UserService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,8 +16,11 @@ public class InfoController {
                         @RequestParam("address")String address,@RequestParam("troduce")String troduce,@RequestParam("sex")String sex,
                         @RequestParam("illness")String illness, @RequestParam("identify")String identify,@RequestParam("phone")String phone){
         UserInfo userInfo = new UserInfo(phone, age, sex, height, weight, identify, address, troduce, illness);
-        infoService.insert(age,sex,height,weight,phone,troduce,address,illness,identify);
-
-
+        infoService.insert(age,sex,height,weight,identify,troduce,address,illness,phone);
+    }
+    @RequestMapping("/showInfo")
+    public UserInfo select(@Param("phone")String phone){
+        UserInfo select = infoService.select(phone);
+        return select;
     }
 }
